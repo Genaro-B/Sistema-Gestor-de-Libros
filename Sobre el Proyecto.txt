@@ -1,0 +1,7 @@
+Este es un proyecto individual que simula el funcionamiento de el pedido como tambien
+de consultas y registros de usuarios dentro de un ambiente relacionado a una Biblioteca.
+Esta es la primera version, en caso de nuevas mejoras se actualiza este archivo como tambien
+en los commits que se hacen una vez este listo para subir al repo remoto.
+
+Primera version:
+-Demasiado codigo repetido.
