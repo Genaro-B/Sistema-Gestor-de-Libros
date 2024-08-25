@@ -31,7 +31,7 @@ public class Biblioteca {
         while (control){
 
             System.out.println("<--Menu-->");
-            System.out.println("1)Ver lista\n2)Pedir libro\n3)Mis libros\n4)Pagar deuda\n5)Registrarme\n6)salir");
+            System.out.print("1)Ver lista\n2)Pedir libro\n3)Mis libros\n4)Pagar deuda\n5)Registrarme\n6)salir\n>");
             opcion=leer.nextInt();
             switch (opcion){
                 case 1:
@@ -207,6 +207,7 @@ public class Biblioteca {
         libro = leer.nextInt();
         System.out.print("Ingrese el  comentario:");
         comentario=leer2.nextLine();
+        comentario+=("    -Autor: "+usuario.getNombre()+" "+usuario.getApellido());
         usuario.getMisLibros().get(libro-1).agregarComentario(comentario);
     }
     public static  void evaluaropcion(Usuario usuario,int opcion){

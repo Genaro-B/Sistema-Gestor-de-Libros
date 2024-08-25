@@ -5,5 +5,6 @@ en los commits que se hacen una vez este listo para subir al repo remoto.
 
 Segunda version:Se crearon funciones para evitar texto repetido o sentencias practicamente iguales.
 
-Objetivo:Comentar más el codigo y crear nuevas funcionalidades Ej:Insertar conjunto al comentario
-el nombre del usuario que lo esta haciendo.
+Objetivo:Comentar más el codigo y crear nuevas funcionalidades 
+
+-Insertar conjunto al comentario el nombre del usuario que lo esta haciendo.(Listo)
