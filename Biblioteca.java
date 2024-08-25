@@ -38,12 +38,12 @@ public class Biblioteca {
                         mostrarLibros(Biblioteca);
                     break;
                 case 2:
-                        System.out.print("Ingrese su numero de cliente:");
+                        mensaje();
                         numeroDecliente=leer.nextInt();
                         pedirlibro(Biblioteca,numeroDecliente,Usuario1,Usuario2);
                     break;
                 case 3:
-                        System.out.println("Ingrese su numero de cliente:");
+                        mensaje();
                         numeroDecliente=leer.nextInt();
                         mislibros(Biblioteca,numeroDecliente,Usuario1,Usuario2);
 
@@ -71,9 +71,6 @@ public class Biblioteca {
                     System.out.println("Opcion no existente!");
             }
         }
-
-
-
     }
     //Metodos que pertenecen a la clase principal:
     public static void mostrarLibros(ArrayList<Libros> Biblioteca){
@@ -123,25 +120,9 @@ public class Biblioteca {
             //Guardar Libro en variable local
             libro=Biblioteca.get(indice-1);
             if(numeroCliente==u1.getNumeroDeCliente()){
-
-                //Guardar en inventario de u1
-                if(u1.evaluarEstado()){
-                    u1.guardarLibro(libro);
-                    Biblioteca.remove(indice-1);
-                    u1.setDeuda(2500);
-                }else{
-                    System.out.println("<--No puede adquirir un libro nuevo porque debe dinero-->");
-                }
-
+                guardarEnInventario(u1,indice,libro,Biblioteca);
             }else{
-                //Guardar en inventario de u2
-                if(u2.evaluarEstado()){
-                    u2.guardarLibro(libro);
-                    Biblioteca.remove(indice-1);
-                    u1.setDeuda(2500);
-                }else{
-                    System.out.println("<--No puede adquirir un libro nuevo porque debe dinero-->");
-                }
+                guardarEnInventario(u2,indice,libro,Biblioteca);
             }
 
         }else{
@@ -151,51 +132,33 @@ public class Biblioteca {
     }
     public static void mislibros(ArrayList<Libros>Biblioteca,int numeroCliente,Usuario u1,Usuario u2){
         Scanner leer=new Scanner(System.in);
-        Scanner leer2=new Scanner(System.in);
-        int libro=0;
         int opcion=0;
-        String comentario="";
         System.out.println("1)Devolver libro 2)Agregar comentario");
         opcion=leer.nextInt();
         if(opcion==1) {
             if (numeroCliente == u1.getNumeroDeCliente() || numeroCliente == u2.getNumeroDeCliente()) {
                 System.out.println("Indique el libro a devolver:");
                 if (numeroCliente == u1.getNumeroDeCliente()) {
-                    u1.mostrarMisLibros();
-                    libro = leer.nextInt();
-                    Biblioteca.add(u1.getMisLibros().get(libro - 1));
-                    u1.getMisLibros().remove(libro - 1);
+                    devolverLibro(u1,Biblioteca);
                 } else {
-                    u2.mostrarMisLibros();
-                    libro = leer.nextInt();
-                    Biblioteca.add(u2.getMisLibros().get(libro - 1));
-                    u1.getMisLibros().remove(libro - 1);
+                    devolverLibro(u2,Biblioteca);
                 }
                 System.out.println("<--Mensaje importante-->");
                 System.out.println("El libro fue devuelto y retirado de tu biblioteca personal");
             } else {
-                System.out.println("<--Numero de cliente invalido (En caso de no tener un codigo de cliente ->registrarse)-->");
+                mostrarMensajeError();
             }
         }else{
             if (numeroCliente == u1.getNumeroDeCliente() || numeroCliente == u2.getNumeroDeCliente()) {
                 System.out.println("Indique el libro a el que va agregar el comentario");
                 if (numeroCliente == u1.getNumeroDeCliente()) {
-                    u1.mostrarMisLibros();
-                    libro = leer.nextInt();
-                    System.out.print("Ingrese el  comentario:");
-                    comentario=leer2.nextLine();
-                    u1.getMisLibros().get(libro-1).agregarComentario(comentario);
+                    hacerComentario(u1,Biblioteca);
                 } else {
-
-                    u2.mostrarMisLibros();
-                    libro = leer.nextInt();
-                    System.out.print("Ingrese el  comentario:");
-                    comentario=leer2.nextLine();
-                    u2.getMisLibros().get(libro-1).agregarComentario(comentario);
+                    hacerComentario(u2,Biblioteca);
                 }
                 System.out.println("<--Comentario exitoso-->");
             } else {
-                System.out.println("<--Numero de cliente invalido (En caso de no tener un codigo de cliente ->registrarse)-->");
+                mostrarMensajeError();
             }
 
         }
@@ -208,40 +171,69 @@ public class Biblioteca {
     }
     public static void pagarDeuda(int numeroCliente,Usuario u1,Usuario u2){
         Scanner leer=new Scanner(System.in);
-
         int opcion=0;
-        int monto=0;
         if(numeroCliente==u1.getNumeroDeCliente()||numeroCliente==u2.getNumeroDeCliente()){
             System.out.println("1)Consultar deuda 2)pagar");
             opcion=leer.nextInt();
             if(numeroCliente==u1.getNumeroDeCliente()){
-                if(opcion==1){
-                    System.out.println("Deuda:"+u1.getDeuda());
-                }else{
-                    if(opcion==2){
-                        System.out.print("Indique el monto a pagar:");
-                        monto=leer.nextInt();
-                        u1.pagarDeuda(monto);
-                    }else{
-                        System.out.println("Opcion no existente!");
-                    }
-                }
+                evaluaropcion(u1,opcion);
             }else{
-                if(opcion==1){
-                    System.out.println("Deuda:"+u2.getDeuda());
-                }else{
-                    if(opcion==2){
-                        System.out.print("Indique el monto a pagar:");
-                        monto=leer.nextInt();
-                        u2.pagarDeuda(monto);
-                    }else{
-                        System.out.println("Opcion no existente!");
-                    }
-                }
+                evaluaropcion(u2,opcion);
             }
         }else{
-            System.out.println("<--Numero de cliente invalido (En caso de no tener un codigo de cliente ->registrarse)-->");
+            mostrarMensajeError();
         }
 
+    }
+    public static void mostrarMensajeError(){
+            System.out.println("<--Numero de cliente invalido (En caso de no tener un codigo de cliente ->registrarse)-->");
+    }
+    public static void devolverLibro(Usuario usuario,ArrayList<Libros> Biblioteca){
+        Scanner leer=new Scanner(System.in);
+        int libro=0;
+        usuario.mostrarMisLibros();
+        libro=leer.nextInt();
+        Biblioteca.add(usuario.getMisLibros().get(libro - 1));
+        usuario.getMisLibros().remove(libro - 1);
+    }
+
+    public static void hacerComentario(Usuario usuario,ArrayList<Libros> Biblioteca){
+        Scanner leer=new Scanner(System.in);
+        Scanner leer2=new Scanner(System.in);
+        int libro=0;
+        String comentario="";
+
+        usuario.mostrarMisLibros();
+        libro = leer.nextInt();
+        System.out.print("Ingrese el  comentario:");
+        comentario=leer2.nextLine();
+        usuario.getMisLibros().get(libro-1).agregarComentario(comentario);
+    }
+    public static  void evaluaropcion(Usuario usuario,int opcion){
+        Scanner leer=new Scanner(System.in);
+        int monto;
+        if(opcion==1){
+            System.out.println("Deuda:"+usuario.getDeuda());
+        }else{
+            if(opcion==2){
+                System.out.print("Indique el monto a pagar:");
+                monto=leer.nextInt();
+                usuario.pagarDeuda(monto);
+            }else{
+                System.out.println("Opcion no existente!");
+            }
+        }
+    }
+    public static void guardarEnInventario(Usuario usuario,int indice,Libros libro,ArrayList<Libros> Biblioteca){
+        if(usuario.evaluarEstado()){
+            usuario.guardarLibro(libro);
+            Biblioteca.remove(indice-1);
+            usuario.setDeuda(2500);
+        }else{
+            System.out.println("<--No puede adquirir un libro nuevo porque debe dinero-->");
+        }
+    }
+    public static void mensaje(){
+        System.out.println("Ingrese su numero de cliente");
     }
 }

@@ -21,7 +21,6 @@ public class Libros {
         this.id = id;
     }
     //Getters:
-
     public String getAutor() {
         return autor;
     }
@@ -45,6 +44,7 @@ public class Libros {
     public String[] getComentarios() {
         return comentarios;
     }
+    //Metodos Generales:
 
     //Crear el metodo set del atributo pertenencia para que nos permita manipular quien es el tutor actual de el libro;
     public void setPertenencia(Usuario pertenencia) {
@@ -54,14 +54,9 @@ public class Libros {
     public void agregarComentario(String Comentario){
         for (int i=0;i<this.comentarios.length;i++){
             if(this.comentarios[i]==null){
-                System.out.println("Ya guarde el comentario>>>>>");
                 this.comentarios[i]=Comentario;
                 break;
             }
-        }
-        System.out.println("<--Comentarios-->");
-        for(int i=0;i<comentarios.length;i++){
-            System.out.println(this.comentarios[i]);
         }
     }
     //Metodo que permita ver comentarios:
@@ -89,6 +84,4 @@ public class Libros {
             verComentarios();
         }
     }
-
-
 }

@@ -12,12 +12,21 @@ public class Usuario{
     private int numeroDeCliente;
     private int deuda;
     private ArrayList<Libros> misLibros=new ArrayList<>();
-//Getters:
-
+    //Constructores:
+    public Usuario() {
+    }
+    public Usuario(String nombre, String apellido, int edad, int numeroDeCliente, int deuda, ArrayList<Libros> misLibros) {
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.edad = edad;
+        this.numeroDeCliente = numeroDeCliente;
+        this.deuda = deuda;
+        this.misLibros = misLibros;
+    }
+    //Getters:
     public String getNombre() {
         return nombre;
     }
-
     public String getApellido() {
         return apellido;
     }
@@ -42,8 +51,6 @@ public class Usuario{
         return misLibros;
     }
     //Setters:
-
-
     public void setMisLibros(ArrayList<Libros> misLibros) {
         this.misLibros = misLibros;
     }

@@ -3,5 +3,7 @@ de consultas y registros de usuarios dentro de un ambiente relacionado a una Bib
 Esta es la primera version, en caso de nuevas mejoras se actualiza este archivo como tambien
 en los commits que se hacen una vez este listo para subir al repo remoto.
 
-Primera version:
--Demasiado codigo repetido.
+Segunda version:Se crearon funciones para evitar texto repetido o sentencias practicamente iguales.
+
+Objetivo:Comentar más el codigo y crear nuevas funcionalidades Ej:Insertar conjunto al comentario
+el nombre del usuario que lo esta haciendo.
